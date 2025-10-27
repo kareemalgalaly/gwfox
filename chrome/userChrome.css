@@ -7,7 +7,8 @@
   ╚═══╝ ╚═╝╚═╝ ╚╝   ╚══╝ ╚══╝╚══╝
   
   https://github.com/akkva/gwfox
-  
+
+  Edited by Kareem https://github.com/kareemalgalaly/gwfox
   ############################## */
 
 @namespace xul "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
@@ -65,6 +66,7 @@
   --tab-icon-overlay-fill: light-dark(rgba(0, 0, 0, .8), rgba(225, 225, 225, .8)) !important;
   --toolbarbutton-hover-background: color-mix(in srgb, currentColor 10%, transparent) !important;
   --toolbarbutton-active-background: color-mix(in srgb, currentColor 15%, transparent) !important;
+  --min-window-width: 300px;
   @media (-moz-mac-tahoe-theme) {
   --border-radius-small: 12px !important;
   --bs1: 0 5px 15px rgba(0, 0, 0, .2), 0 0 0 1px rgba(0, 0, 0, .2);
@@ -860,14 +862,27 @@
 
 /* button */
 
+/* 
+Kareem tweaks
+  make visible
+    #userContext-icons: container icon
+    #userContext-label: container name (hide on hover)
+  make invisible
+    #urlbar-go-button
+    #star-button-box
+*/
+
 .toggle-button { --toggle-dot-background-color-on-pressed: #fff !important; }
 #blocked-permissions-container, #picture-in-picture-button,
 .private-browsing-indicator-with-label,
 #reset-pbm-toolbar-button, #taskbar-tabs-button,
 #firefox-view-button, #fxa-toolbar-menu-button,
-#userContext-icons, #userContext-label,
 #scrollbutton-up, #scrollbutton-down,
+#urlbar-go-button, #star-button-box,
 .sharing-icon, #save-to-pocket-button {
+  display: none !important;
+}
+#urlbar:hover #userContext-label {
   display: none !important;
 }
 
@@ -878,7 +893,7 @@
 #reader-mode-button > .urlbar-icon,
 #translations-button > #translations-button-icon,
 #shopping-sidebar-button > .urlbar-icon , #identity-box,
-#tracking-protection-icon-container, .urlbar-go-button {
+#tracking-protection-icon-container {
   fill: light-dark(#525252, #c9c9cb) !important;
   fill-opacity: 1 !important;
 }
@@ -890,7 +905,8 @@
 #reader-mode-button:active > .urlbar-icon,
 #translations-button:active > #translations-button-icon,
 #shopping-sidebar-button:active > .urlbar-icon , #identity-box:active,
-#tracking-protection-icon-container:active, .urlbar-go-button:active {
+/*, .urlbar-go-button:active /* Kareem wants to hide */ 
+#tracking-protection-icon-container:active {
   fill: light-dark(#2d2d2d, #ececec) !important;
 }
 
@@ -1575,10 +1591,11 @@ tree {
 }
 
 :root#main-window {
-  min-width: 611px !important;
+  min-width: var(--min-window-width) !important;
 @media not (-moz-platform: macos) {
 @media (not -moz-pref("gwfox.plus")) or -moz-pref("gwfox.plus_sc") {
-  min-width: 701px !important;
+  min-width:  !important;
+  min-width: calc(var(--min-window-width) + 90px) !important;
 }
 }
 @media (-moz-platform: macos) {

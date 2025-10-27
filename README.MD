@@ -6,6 +6,11 @@
 <img width="1315" alt="01">
 </picture>
 
+## Changes from original gwfox
+
+- Container label and icon are made visible in url field
+- Star icon removed from url field made invisible
+
 ## How to install
 
 - [Download the theme as a zip file](https://github.com/akkva/gwfox/archive/refs/heads/main.zip)
