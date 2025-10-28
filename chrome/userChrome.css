@@ -14,7 +14,7 @@
 @namespace xul "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 
 :root {
-  --bg1: light-dark(#f5f6f6, #383838);
+  --bg1: light-dark(#f5f6f6, #383838);                                  /* main bg not always used */
   --bg2: light-dark(#fff, #454545);
   --bg3: light-dark(rgba(50, 50, 50, .1), rgba(225, 225, 225, .1));
   --bg4: light-dark(rgba(255, 255, 255, .75), rgba(15, 15, 12, .75));
@@ -22,8 +22,8 @@
   --bs2: 0 5px 15px rgba(0, 0, 0, .25), 0 0 0 .5px rgba(0, 0, 0, .5);
   --outline-color: light-dark(#7db0f7, #2c749f);
   --button-bgcolor: light-dark(rgba(70, 70, 70, .12), rgba(170, 170, 170, .15)) !important;
-  --button-hover-bgcolor: light-dark(rgba(70, 70, 70, .1), rgba(170, 170, 170, .2)) !important;
-  --button-active-bgcolor: light-dark(rgba(70, 70, 70, .15), rgba(170, 170, 170, .3)) !important;
+  --button-hover-bgcolor: light-dark(rgba(70, 70, 70, .1), rgba(170, 170, 170, .2)) !important;   /* urlbar normal */
+  --button-active-bgcolor: light-dark(rgba(70, 70, 70, .15), rgba(170, 170, 170, .3)) !important; /* urlbar hover/active */
   --button-background-color: var(--button-bgcolor) !important;
   --button-background-color-hover: var(--button-hover-bgcolor) !important;
   --button-background-color-active: var(--button-active-bgcolor) !important;
@@ -83,6 +83,14 @@
   --bg1: light-dark(rgba(255, 255, 255, .75), rgba(15, 15, 12, .75));
   }
   }
+  @media -moz-pref("gwfox.theme") { 
+  --button-hover-bgcolor: light-dark(rgba(255, 255, 255, .4), rgba(255, 255, 255, .2)) !important;  /* urlbar normal */
+  --button-active-bgcolor: light-dark(rgba(255, 255, 255, .8), rgba(255, 255, 255, .3)) !important; /* urlbar hover/active */
+  }
+  @media -moz-pref("gwfox.theme", "ocean")  { --bg1: light-dark(#b2e3f7, #326999); }
+  @media -moz-pref("gwfox.theme", "forest") { --bg1: light-dark(#cdf7b2, #2b4418); }
+  @media -moz-pref("gwfox.theme", "desert") { --bg1: light-dark(#fcf5b3, #3a2f05); }
+  @media -moz-pref("gwfox.theme", "cherry") { --bg1: light-dark(#f7b2b6, #440810); }
 }
 
 :root[macOSNativeFullscreen] #navigator-toolbox {
@@ -193,9 +201,18 @@
 }
 
 @media not -moz-pref("gwfox.atbc") {
-#PersonalToolbar, #TabsToolbar,
-#navigator-toolbox, #browser {
+#PersonalToolbar {
+    background: transparent !important;
+}
+@media not -moz-pref("gwfox.theme") {
+#TabsToolbar, #navigator-toolbox, #browser {
   background: transparent !important;
+}
+}
+@media -moz-pref("gwfox.theme") {
+#TabsToolbar, #navigator-toolbox, #browser {
+  background: color-mix(in oklab, var(--bg1) 35%, transparent) !important;
+}
 }
 }
 
@@ -866,7 +883,7 @@
 Kareem tweaks
   make visible
     #userContext-icons: container icon
-    #userContext-label: container name (hide on hover)
+    #userContext-label: container name (hide on hover if gwfox.plus)
   make invisible
     #urlbar-go-button
     #star-button-box
@@ -882,8 +899,10 @@ Kareem tweaks
 .sharing-icon, #save-to-pocket-button {
   display: none !important;
 }
+@media -moz-pref("gwfox.plus", true) {
 #urlbar:hover #userContext-label {
   display: none !important;
+}
 }
 
 .tab-close-button, .tab-icon-overlay, .tab-icon-image, span[part="button"],
