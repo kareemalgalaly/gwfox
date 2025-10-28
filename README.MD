@@ -10,6 +10,7 @@
 
 - Container label and icon are made visible in url field
 - Star icon removed from url field made invisible
+- Added color tint themes (ocean, forest, desert, cherry)
 
 ## How to install
 
